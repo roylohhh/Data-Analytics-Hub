@@ -62,7 +62,7 @@ public class HomeController {
 		});
 
 		retrievePost.setOnAction(event -> {
-			//click on retrievePost, go to addPost.fxml
+			//click on retrievePost, go to retrievePost.fxml
 		});
 
 		removePost.setOnAction(event -> {
