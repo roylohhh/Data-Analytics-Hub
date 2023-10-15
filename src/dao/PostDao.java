@@ -3,6 +3,7 @@ package dao;
 import java.sql.SQLException;
 import java.time.LocalDateTime;
 
+import javafx.scene.control.TextField;
 import model.Post;
 
 public interface PostDao {

@@ -32,7 +32,6 @@ private final String TABLE_NAME = "posts";
 	
 	@Override
 	//retrieve Post
-	//TODO: change this so that only id has to be entered to get full post details
 	public Post getPost(int id, String content, String author, int likes, int shares) throws SQLException {
 		String sql = "SELECT * FROM" + "TABLE_NAME" + "WHERE ID = ? AND content = ? AND author = ? AND likes =? AND shares =?";
 		try (Connection connection = Database.getConnection();
