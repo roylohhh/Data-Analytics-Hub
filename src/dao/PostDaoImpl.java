@@ -31,6 +31,8 @@ private final String TABLE_NAME = "posts";
 	}
 	
 	@Override
+	//retrieve Post
+	//TODO: change this so that only id has to be entered to get full post details
 	public Post getPost(int id, String content, String author, int likes, int shares) throws SQLException {
 		String sql = "SELECT * FROM" + "TABLE_NAME" + "WHERE ID = ? AND content = ? AND author = ? AND likes =? AND shares =?";
 		try (Connection connection = Database.getConnection();
@@ -57,6 +59,7 @@ private final String TABLE_NAME = "posts";
 	}
 	
 	@Override
+	//add Post
 	public Post createPost(int id, String content, String author, int likes, int shares) throws SQLException{
 		String sql = "INSERT INTO" + TABLE_NAME + "VALUES(?,?)" ;
 		try(Connection connection = Database.getConnection();
@@ -71,4 +74,21 @@ private final String TABLE_NAME = "posts";
 			return new Post(id, content, author, likes, shares);
 		}	
 	}
+	
+	//TODO: remove Post
+	@Override
+	public boolean removePost(int id) throws SQLException {
+	    String sql = "DELETE FROM " + TABLE_NAME + " WHERE ID = ?";
+	    try (Connection connection = Database.getConnection();
+	         PreparedStatement statement = connection.prepareStatement(sql);) {
+	        statement.setInt(1, id);
+	        
+	        int rowsDeleted = statement.executeUpdate();
+	        return rowsDeleted > 0;  // Returns true if at least one row (post) is deleted.
+	    }
+	}
+
+		
+		
+	
 }

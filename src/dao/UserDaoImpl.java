@@ -30,6 +30,7 @@ public class UserDaoImpl implements UserDao{
 	}
 	
 	@Override
+	//login
 	public User getUser(String username, String password, String firstName, String lastName) throws SQLException {
 		String sql = "SELECT * FROM" + "TABLE_NAME" + "WHERE username = ? AND password = ? AND firstName = ? AND lastName =?";
 		try (Connection connection = Database.getConnection();
@@ -52,6 +53,7 @@ public class UserDaoImpl implements UserDao{
 	}
 	
 	@Override
+	//register
 	public User createUser(String username, String password, String firstName, String lastName) throws SQLException{
 		String sql = "INSERT INTO" + TABLE_NAME + "VALUES(?,?)" ;
 		try(Connection connection = Database.getConnection();
