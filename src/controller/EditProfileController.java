@@ -6,6 +6,7 @@ import javafx.fxml.FXML;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
@@ -13,57 +14,58 @@ import javafx.stage.Stage;
 import model.Model;
 import model.User;
 
-public class SignupController {
+public class EditProfileController {
 	@FXML
 	private TextField username;
 	@FXML
-	private TextField password;
+	private PasswordField password;	
 	@FXML
 	private TextField firstName;
 	@FXML
 	private TextField lastName;
 	@FXML
-	private Button createUser;
-	@FXML
-	private Button close;
+	private Button editProfile;
 	@FXML
 	private Label status;
+	@FXML
+	private Button close;
 	
-	private Stage stage;
-	private Stage parentStage;
 	private Model model;
+	private Stage parentStage;
+	private Stage stage;
 	
-	public SignupController(Stage parentStage, Model model) {
+	public EditProfileController(Stage parentStage, Model model) {
 		this.stage = new Stage();
 		this.parentStage = parentStage;
 		this.model = model;
 	}
-
+	
 	@FXML
 	public void initialize() {
-		createUser.setOnAction(event -> {
-			if (!username.getText().isEmpty() && !password.getText().isEmpty() && !firstName.getText().isEmpty() && !lastName.getText().isEmpty()) {
-				User user;
+		editProfile.setOnAction(event ->{
+			if(!username.getText().isEmpty() && !password.getText().isEmpty() && !firstName.getText().isEmpty() && !lastName.getText().isEmpty()) {
+				User user; 
 				try {
-					user = model.getUserDao().createUser(username.getText(), password.getText(), firstName.getText(), lastName.getText());
-					if (user != null) {
-						status.setText("Created " + user.getUsername());
-						status.setTextFill(Color.GREEN);
-					} else {
-						status.setText("Cannot create user");
-						status.setTextFill(Color.RED);
-					}
-				} catch (SQLException e) {
+					user = model.getCurrentUser();
+					String currentUsername = user.getUsername();
+					user.setUsername(username.getText());
+					user.setPassword(password.getText());
+					user.setFirstName(firstName.getText());
+					user.setLastName(lastName.getText());
+					
+					model.getUserDao().editProfile(user, currentUsername);
+					status.setText("User details updated");
+					status.setTextFill(Color.GREEN);
+				} catch(SQLException e) {
 					status.setText(e.getMessage());
-					status.setTextFill(Color.RED);
-				}
-				
+					status.setTextFill(Color.RED);					
+				} 					
 			} else {
 				status.setText("Empty username or password");
 				status.setTextFill(Color.RED);
 			}
 		});
-
+		
 		close.setOnAction(event -> {
 			stage.close();
 			parentStage.show();
@@ -77,5 +79,5 @@ public class SignupController {
 		stage.setTitle("Sign up");
 		stage.show();
 	}
+	
 }
-

@@ -71,19 +71,12 @@ public class PostDaoImpl implements PostDao{
 	}
 	
 	//TODO: remove Post
-	@Override
-	public boolean removePost(int id) throws SQLException {
-	    String sql = "DELETE FROM " + TABLE_NAME + " WHERE ID = ?";
-	    try (Connection connection = Database.getConnection();
-	         PreparedStatement statement = connection.prepareStatement(sql);) {
-	        statement.setInt(1, id);
-	        
-	        int rowsDeleted = statement.executeUpdate();
-	        return rowsDeleted > 0;  // Returns true if at least one row (post) is deleted.
-	    }
-	}
+	
+	
+	//TODO: get top posts
+	
+	
+	//TODO: Export posts
 
 		
-		
-	
 }

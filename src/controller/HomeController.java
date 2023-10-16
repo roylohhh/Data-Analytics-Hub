@@ -18,6 +18,8 @@ public class HomeController {
 	@FXML
 	private MenuItem editProfile; // Corresponds to the Menu item "viewProfile" in HomeView.fxml
 	@FXML
+	private MenuItem logout;
+	@FXML
 	private MenuItem updateProfile; // Corresponds to the Menu item "updateProfile" in HomeView.fxml
 	@FXML
 	private MenuItem addPosts; //Corresponds to the Menu item "addPosts" in HomeView.fxml
@@ -35,10 +37,40 @@ public class HomeController {
 	// Add your code to complete the functionality of the program
 	
 	public void initialize() {
+		//edit profile
+		editProfile.setOnAction(event -> handleEditProfile());
+		//add posts
 		addPosts.setOnAction(event -> handleAddPosts());
+		//retrieve posts
 		retrievePosts.setOnAction(event -> handleRetrievePosts());
+		//remove post
+		
+		//retrieve top N posts with most likes
+		
+		//Export post to file based on post ID
+		
+		//logout
+		logout.setOnAction(event ->{
+			stage.close();
+			parentStage.show();
+		});
 	}
-	 
+	
+	//Edit profile
+	private void handleEditProfile() {
+		try {
+			FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/EditProfileView.fxml"));
+			EditProfileController editProfileController = new EditProfileController(stage, model);
+			loader.setController(editProfileController);
+			VBox root = loader.load();
+			
+			editProfileController.showStage(root);
+			
+		} catch(IOException e) {
+			e.getMessage();
+		}		
+	}
+	
 	//Add posts
 	private void handleAddPosts() {
 		try {

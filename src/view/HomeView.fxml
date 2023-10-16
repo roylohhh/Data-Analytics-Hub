@@ -9,9 +9,10 @@
   <children>
     <MenuBar fx:id="menu" prefHeight="25.0" prefWidth="870.0">
       <menus>
-            <Menu fx:id="profile" mnemonicParsing="false" text="Profile">
+            <Menu fx:id="user" mnemonicParsing="false" text="User">
               <items>
                 <MenuItem fx:id="editProfile" mnemonicParsing="false" text="Edit profile" />
+                  <MenuItem fx:id="logout" mnemonicParsing="false" text="Logout" />
               </items>
             </Menu>
             <Menu fx:id="posts" mnemonicParsing="false" text="Posts">

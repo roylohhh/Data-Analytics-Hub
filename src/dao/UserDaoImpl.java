@@ -7,6 +7,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 import model.User;
+import model.Model;
 
 public class UserDaoImpl implements UserDao{
 	private final String TABLE_NAME = "users";
@@ -50,9 +51,8 @@ public class UserDaoImpl implements UserDao{
 		}
 	}
 	
-	@Override
 	//register
-	//Completed
+	@Override
 	public User createUser(String username, String password, String firstName, String lastName) throws SQLException{
 		String sql = "INSERT INTO " + TABLE_NAME + " VALUES(?,?,?,?)" ;
 		try(Connection connection = Database.getConnection();
@@ -66,4 +66,21 @@ public class UserDaoImpl implements UserDao{
 			return new User(username, password, firstName, lastName);
 		}	
 	}
+	
+	//editprofile
+	public void editProfile(User user, String currentUsername) throws SQLException{
+		String sql = "UPDATE " + TABLE_NAME + " SET username = ?, password = ?, firstName = ?, lastName = ?" + " WHERE username =?";
+		try(Connection connection = Database.getConnection();
+				PreparedStatement statement = connection.prepareStatement(sql);){
+			statement.setString(1, user.getUsername());
+			statement.setString(2, user.getPassword());
+			statement.setString(3, user.getFirstName());
+			statement.setString(4, user.getLastName());
+			statement.setString(4, user.getLastName());
+			statement.setString(5, currentUsername);
+			
+			statement.executeUpdate();
+		}
+	}
+	
 }
