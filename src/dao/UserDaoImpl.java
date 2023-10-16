@@ -14,7 +14,7 @@ public class UserDaoImpl implements UserDao{
 	public UserDaoImpl() {
 		
 	}
-	
+	//Get the table users
 	@Override
 	public void setup() throws SQLException{
 		try(Connection connection = Database.getConnection();
@@ -29,10 +29,10 @@ public class UserDaoImpl implements UserDao{
 		}
 	}
 	
-	@Override
 	//login
-	public User getUser(String username, String password, String firstName, String lastName) throws SQLException {
-		String sql = "SELECT * FROM" + "TABLE_NAME" + "WHERE username = ? AND password = ? AND firstName = ? AND lastName =?";
+	@Override
+	public User getUser(String username, String password) throws SQLException {
+		String sql = "SELECT * FROM " + TABLE_NAME + " WHERE username = ? AND password = ?";
 		try (Connection connection = Database.getConnection();
 				PreparedStatement stmt = connection.prepareStatement(sql);){
 			stmt.setString(1, username);
@@ -43,8 +43,6 @@ public class UserDaoImpl implements UserDao{
 					User user = new User();
 					user.setUsername(rs.getString("username"));
 					user.setPassword(rs.getString("password"));
-					user.setPassword(rs.getString("firstName"));
-					user.setPassword(rs.getString("lastName"));
 					return user;
 				}
 				return null;
@@ -54,12 +52,15 @@ public class UserDaoImpl implements UserDao{
 	
 	@Override
 	//register
+	//Completed
 	public User createUser(String username, String password, String firstName, String lastName) throws SQLException{
-		String sql = "INSERT INTO" + TABLE_NAME + "VALUES(?,?)" ;
+		String sql = "INSERT INTO " + TABLE_NAME + " VALUES(?,?,?,?)" ;
 		try(Connection connection = Database.getConnection();
 				PreparedStatement statement = connection.prepareStatement(sql);){
 			statement.setString(1, username);
 			statement.setString(2, password);
+			statement.setString(3, firstName);
+			statement.setString(4, lastName);
 
 			statement.executeUpdate();
 			return new User(username, password, firstName, lastName);

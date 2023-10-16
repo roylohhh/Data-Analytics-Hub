@@ -21,13 +21,9 @@ import model.User;
 
 public class LoginController {
 	@FXML
-	private TextField name;
+	private TextField username;
 	@FXML
 	private PasswordField password;
-	@FXML
-	private TextField firstName;
-	@FXML
-	private TextField lastName;
 	@FXML
 	private Label message;
 	@FXML
@@ -46,10 +42,10 @@ public class LoginController {
 	@FXML
 	public void initialize() {		
 		login.setOnAction(event -> {
-			if (!name.getText().isEmpty() && !password.getText().isEmpty()) {
+			if (!username.getText().isEmpty() && !password.getText().isEmpty()) {
 				User user;
 				try {
-					user = model.getUserDao().getUser(name.getText(), password.getText(), firstName.getText(), lastName.getText());
+					user = model.getUserDao().getUser(username.getText(), password.getText());
 					if (user != null) {
 						model.setCurrentUser(user);
 						try {
@@ -78,7 +74,7 @@ public class LoginController {
 				message.setText("Empty username or password");
 				message.setTextFill(Color.RED);
 			}
-			name.clear();
+			username.clear();
 			password.clear();
 		});
 		
@@ -95,7 +91,7 @@ public class LoginController {
 				signupController.showStage(root);
 				
 				message.setText("");
-				name.clear();
+				username.clear();
 				password.clear();
 				
 				stage.close();

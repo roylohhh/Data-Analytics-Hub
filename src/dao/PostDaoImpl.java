@@ -19,7 +19,7 @@ private final String TABLE_NAME = "posts";
 	public void setup() throws SQLException{
 		try(Connection connection = Database.getConnection();
 				Statement statement = connection.createStatement();){
-			String sql = ("CREATE TABLE IF NOT EXISTS" + TABLE_NAME 
+			String sql = ("CREATE TABLE IF NOT EXISTS " + TABLE_NAME 
 					+ "(id INT NOT NULL,"
 					+ "content VARCHAR(40) NOT NULL,"
 					+ "author VARCHAR(20) NOT NULL,"
@@ -33,7 +33,7 @@ private final String TABLE_NAME = "posts";
 	@Override
 	//retrieve Post
 	public Post getPost(int id, String content, String author, int likes, int shares) throws SQLException {
-		String sql = "SELECT * FROM" + "TABLE_NAME" + "WHERE ID = ? AND content = ? AND author = ? AND likes =? AND shares =?";
+		String sql = "SELECT * FROM " + TABLE_NAME + " WHERE ID = ? AND content = ? AND author = ? AND likes =? AND shares =?";
 		try (Connection connection = Database.getConnection();
 				PreparedStatement stmt = connection.prepareStatement(sql);){
 			stmt.setInt(1, id);
