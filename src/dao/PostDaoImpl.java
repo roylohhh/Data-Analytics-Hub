@@ -32,29 +32,25 @@ public class PostDaoImpl implements PostDao{
 	
 	@Override
 	//retrieve Post
-	public Post getPost(int id, String content, String author, int likes, int shares) throws SQLException {
-		String sql = "SELECT * FROM " + TABLE_NAME + " WHERE ID = ? AND content = ? AND author = ? AND likes =? AND shares =?";
+	public Post getPost(int id) throws SQLException {
+		String sql = "SELECT * FROM " + TABLE_NAME + " WHERE id = ?";
 		try (Connection connection = Database.getConnection();
 				PreparedStatement stmt = connection.prepareStatement(sql);){
 			stmt.setInt(1, id);
-			stmt.setString(2, content);
-			stmt.setString(3, author);
-			stmt.setInt(4, likes);
-			stmt.setInt(5, shares);
 			
 			try(ResultSet rs = stmt.executeQuery()){
-				if (rs.next()) {
+				if(rs.next()) {
 					Post post = new Post();
-					post.setID(rs.getInt(id));
-					post.setContent(rs.getString(content));
-					post.setAuthor(rs.getString(author));
-					post.setLikes(rs.getInt(likes));
-					post.setShares(rs.getInt(shares));
+					post.setID(rs.getInt("id"));
+					post.setContent(rs.getString("content"));
+					post.setAuthor(rs.getString("author"));
+					post.setLikes(rs.getInt("likes"));
+					post.setShares(rs.getInt("shares"));
 					return post;
 				}
-				return null;
 			}
 		}
+		return null;
 	}
 	
 	@Override

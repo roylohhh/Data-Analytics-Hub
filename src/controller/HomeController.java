@@ -36,8 +36,10 @@ public class HomeController {
 	
 	public void initialize() {
 		addPosts.setOnAction(event -> handleAddPosts());
+		retrievePosts.setOnAction(event -> handleRetrievePosts());
 	}
 	 
+	//Add posts
 	private void handleAddPosts() {
 		try {
 			FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/AddPostView.fxml"));
@@ -50,6 +52,21 @@ public class HomeController {
 		} catch(IOException e) {
 			e.getMessage();
 		}
+	}
+	
+	//Retrieve Posts
+	private void handleRetrievePosts() {
+		try {
+			FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/RetrievePostView.fxml"));
+			RetrievePostController retrievePostController = new RetrievePostController(stage, model);
+			loader.setController(retrievePostController);
+			VBox root = loader.load();
+			
+			retrievePostController.showStage(root);
+			
+		} catch(IOException e) {
+			e.getMessage();
+		}		
 	}
 	
 	public void showStage(Pane root) {
