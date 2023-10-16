@@ -1,9 +1,13 @@
 package controller;
 
+import java.io.IOException;
+
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.MenuItem;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import model.Model;
 
@@ -12,13 +16,15 @@ public class HomeController {
 	private Stage stage;
 	private Stage parentStage;
 	@FXML
-	private MenuItem viewProfile; // Corresponds to the Menu item "viewProfile" in HomeView.fxml
+	private MenuItem editProfile; // Corresponds to the Menu item "viewProfile" in HomeView.fxml
 	@FXML
-	private MenuItem updateProfile; // // Corresponds to the Menu item "updateProfile" in HomeView.fxml
+	private MenuItem updateProfile; // Corresponds to the Menu item "updateProfile" in HomeView.fxml
 	@FXML
-	private MenuItem addPosts;
+	private MenuItem addPosts; //Corresponds to the Menu item "addPosts" in HomeView.fxml
 	@FXML
-	private MenuItem retrievePosts;
+	private MenuItem retrievePosts; //Corresponds to the Menu item "retrievePosts" in HomeView.fxml
+	@FXML
+	private MenuItem removePosts;
 	
 	public HomeController(Stage parentStage, Model model) {
 		this.stage = new Stage();
@@ -28,9 +34,23 @@ public class HomeController {
 	
 	// Add your code to complete the functionality of the program
 	
-	
-	
-	
+	public void initialize() {
+		addPosts.setOnAction(event -> handleAddPosts());
+	}
+	 
+	private void handleAddPosts() {
+		try {
+			FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/AddPostView.fxml"));
+			AddPostController addPostController = new AddPostController(stage, model);
+			loader.setController(addPostController);
+			VBox root = loader.load();
+			
+			addPostController.showStage(root);
+			
+		} catch(IOException e) {
+			e.getMessage();
+		}
+	}
 	
 	public void showStage(Pane root) {
 		Scene scene = new Scene(root, 500, 300);

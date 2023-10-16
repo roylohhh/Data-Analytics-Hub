@@ -19,6 +19,7 @@ public class Model {
 	
 	public void setup() throws SQLException{
 		userDao.setup();
+		postDao.setup();
 	}
 	
 	//User Dao

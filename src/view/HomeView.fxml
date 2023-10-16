@@ -5,20 +5,20 @@
 <?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox prefHeight="450.0" prefWidth="544.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
+<VBox prefHeight="650.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
   <children>
-    <MenuBar fx:id="menu" prefHeight="25.0" prefWidth="870.0" VBox.vgrow="NEVER">
+    <MenuBar fx:id="menu" prefHeight="25.0" prefWidth="870.0">
       <menus>
             <Menu fx:id="profile" mnemonicParsing="false" text="Profile">
               <items>
-                <MenuItem fx:id="viewProfile" mnemonicParsing="false" text="View my profile" />
-                  <MenuItem fx:id="updateProfile" mnemonicParsing="false" text="Update my profile" />
+                <MenuItem fx:id="editProfile" mnemonicParsing="false" text="Edit profile" />
               </items>
             </Menu>
             <Menu fx:id="posts" mnemonicParsing="false" text="Posts">
               <items>
-                <MenuItem fx:id="addPosts" mnemonicParsing="false" text="Add posts" />
-                  <MenuItem fx:id="retrievePosts" mnemonicParsing="false" text="Retrieve posts" />
+                <MenuItem fx:id="addPosts" mnemonicParsing="false" text="Add post" />
+                  <MenuItem fx:id="retrievePosts" mnemonicParsing="false" text="Retrieve post" />
+                  <MenuItem fx:id="removePosts" mnemonicParsing="false" text="Remove post" />
               </items>
             </Menu>
       </menus>

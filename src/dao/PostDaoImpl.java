@@ -9,7 +9,7 @@ import java.sql.Statement;
 import model.Post;
 
 public class PostDaoImpl implements PostDao{
-private final String TABLE_NAME = "posts";
+	private final String TABLE_NAME = "posts";
 	
 	public PostDaoImpl() {
 		
@@ -60,7 +60,7 @@ private final String TABLE_NAME = "posts";
 	@Override
 	//add Post
 	public Post createPost(int id, String content, String author, int likes, int shares) throws SQLException{
-		String sql = "INSERT INTO" + TABLE_NAME + "VALUES(?,?)" ;
+		String sql = "INSERT INTO " + TABLE_NAME + " VALUES(?,?,?,?,?)" ;
 		try(Connection connection = Database.getConnection();
 				PreparedStatement statement = connection.prepareStatement(sql);){
 			statement.setInt(1, id);
