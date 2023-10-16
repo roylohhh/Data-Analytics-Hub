@@ -5,6 +5,7 @@ import java.io.IOException;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.control.Label;
 import javafx.scene.control.MenuItem;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
@@ -16,9 +17,11 @@ public class HomeController {
 	private Stage stage;
 	private Stage parentStage;
 	@FXML
+	private Label currentUser; ///displays current user
+	@FXML
 	private MenuItem editProfile; // Corresponds to the Menu item "viewProfile" in HomeView.fxml
 	@FXML
-	private MenuItem logout;
+	private MenuItem logout; //logout
 	@FXML
 	private MenuItem updateProfile; // Corresponds to the Menu item "updateProfile" in HomeView.fxml
 	@FXML
@@ -37,6 +40,7 @@ public class HomeController {
 	// Add your code to complete the functionality of the program
 	
 	public void initialize() {
+		currentUser.setText("Welcome " + model.getCurrentUser().getFirstName() + " " +model.getCurrentUser().getLastName());
 		//edit profile
 		editProfile.setOnAction(event -> handleEditProfile());
 		//add posts
