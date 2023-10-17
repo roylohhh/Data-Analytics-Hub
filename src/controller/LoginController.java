@@ -45,25 +45,49 @@ public class LoginController {
 			if (!username.getText().isEmpty() && !password.getText().isEmpty()) {
 				User user;
 				try {
-					user = model.getUserDao().getUser(username.getText(), password.getText());
+					//vip user function
+					user = model.getVIPUserDao().getVIPUser(username.getText(), password.getText());
 					if (user != null) {
 						model.setCurrentUser(user);
 						try {
-							FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/HomeView.fxml"));
-							HomeController homeController = new HomeController(stage, model);
+							FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/VIPView.fxml"));
+							VIPController vipController = new VIPController(stage, model);
 							
-							loader.setController(homeController);
+							loader.setController(vipController);
 							VBox root = loader.load();
 	
-							homeController.showStage(root);
+							vipController.showStage(root);
 							stage.close();
 						}catch (IOException e) {
 							message.setText(e.getMessage());
+						} 
+					}else {
+						//regular login function
+						try {
+							user = model.getUserDao().getUser(username.getText(), password.getText());
+							if (user != null) {
+								model.setCurrentUser(user);
+								try {
+									FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/HomeView.fxml"));
+									HomeController homeController = new HomeController(stage, model);
+									
+									loader.setController(homeController);
+									VBox root = loader.load();
+			
+									homeController.showStage(root);
+									stage.close();
+								}catch (IOException e) {
+									message.setText(e.getMessage());
+								}
+								
+							} else {
+								message.setText("Wrong username or password");
+								message.setTextFill(Color.RED);
+							}
+						} catch (SQLException e) {
+							message.setText(e.getMessage());
+							message.setTextFill(Color.RED);
 						}
-						
-					} else {
-						message.setText("Wrong username or password");
-						message.setTextFill(Color.RED);
 					}
 				} catch (SQLException e) {
 					message.setText(e.getMessage());

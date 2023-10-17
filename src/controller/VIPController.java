@@ -13,9 +13,8 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import model.Model;
-import model.User;
 
-public class HomeController {
+public class VIPController {
 	private Model model;
 	private Stage stage;
 	private Stage parentStage;
@@ -37,12 +36,8 @@ public class HomeController {
 	private MenuItem retrieveTopLikedPosts; //Corresponds to the Menu item "retrieveTopLikedPosts" in HomeView.fxml
 	@FXML
 	private MenuItem exportPostByID;//Corresponds to the Menu item "exportPostByID" in HomeView.fxml
-	@FXML
-	private Label DisplayVIP;
-	@FXML
-	private Button upgradeToVIP;
 	
-	public HomeController(Stage parentStage, Model model) {
+	public VIPController(Stage parentStage, Model model) {
 		this.stage = new Stage();
 		this.parentStage = parentStage;
 		this.model = model;
@@ -52,28 +47,11 @@ public class HomeController {
 	
 	public void initialize() {
 		//Display welcome message
-		currentUser.setText("Welcome " + model.getCurrentUser().getFirstName() + " " + model.getCurrentUser().getLastName());
-		//Ask user whether they want to be a VIP
-		
-		DisplayVIP.setText("Would you like to subscribe to the application for a monthly fee of $0?");
-		
-		//upgrade to VIP
-		upgradeToVIP.setOnAction(event ->{
-			User user = model.getCurrentUser();
-			try {
-				model.getVIPUserDao().createVIPUser(user.getUsername(), user.getPassword(), user.getFirstName(), user.getLastName());
-			} catch (SQLException e) {
-				DisplayVIP.setText(e.getMessage());
-				DisplayVIP.setText("Please log out and log in again to access VIP functionalities.");
-			}
-		});
-		
-		
-		
+		currentUser.setText("Welcome VIP user " + model.getCurrentUser().getFirstName() + " " + model.getCurrentUser().getLastName());	
 		
 		//edit profile
-		editProfile.setOnAction(event -> handleEditProfile());
-		//add posts
+		editProfile.setOnAction(event -> handleEditVIPProfile());
+		//add post
 		addPosts.setOnAction(event -> handleAddPosts());
 		//retrieve posts
 		retrievePosts.setOnAction(event -> handleRetrievePosts());
@@ -92,18 +70,17 @@ public class HomeController {
 	
 	
 	//Edit profile
-	private void handleEditProfile() {
+	private void handleEditVIPProfile() {
 		try {
 			FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/EditProfileView.fxml"));
-			EditProfileController editProfileController = new EditProfileController(stage, model);
-			loader.setController(editProfileController);
+			EditVIPProfileController editVIPProfileController = new EditVIPProfileController(stage, model);
+			loader.setController(editVIPProfileController);
 			VBox root = loader.load();
-			
-			editProfileController.showStage(root);
+			editVIPProfileController.showStage(root);
 			
 		} catch(IOException e) {
 			e.getMessage();
-		}		
+		}
 	}
 	
 	//Add posts
