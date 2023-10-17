@@ -21,21 +21,23 @@ public class VIPController {
 	@FXML
 	private Label currentUser; ///displays current user
 	@FXML
-	private MenuItem editProfile; // Corresponds to the Menu item "viewProfile" in HomeView.fxml
+	private MenuItem editProfile; 
 	@FXML
 	private MenuItem logout; //logout
 	@FXML
-	private MenuItem updateProfile; // Corresponds to the Menu item "updateProfile" in HomeView.fxml
+	private MenuItem updateProfile; 
 	@FXML
-	private MenuItem addPosts; //Corresponds to the Menu item "addPosts" in HomeView.fxml
+	private MenuItem addPosts; 
 	@FXML
-	private MenuItem retrievePosts; //Corresponds to the Menu item "retrievePosts" in HomeView.fxml
+	private MenuItem retrievePosts; 
 	@FXML
-	private MenuItem removePosts; //Corresponds to the Menu item "deletePosts" in HomeView.fxml
+	private MenuItem removePosts;
 	@FXML
-	private MenuItem retrieveTopLikedPosts; //Corresponds to the Menu item "retrieveTopLikedPosts" in HomeView.fxml
+	private MenuItem retrieveTopLikedPosts; 
 	@FXML
-	private MenuItem exportPostByID;//Corresponds to the Menu item "exportPostByID" in HomeView.fxml
+	private MenuItem exportPostByID;
+	@FXML
+	private MenuItem bulkImport; 
 	
 	public VIPController(Stage parentStage, Model model) {
 		this.stage = new Stage();
@@ -61,7 +63,8 @@ public class VIPController {
 		
 		//Export post to file based on post ID
 		exportPostByID.setOnAction(event ->handleExportPost());	
-		//TODO: Bulk export posts
+		//Bulk export posts
+		bulkImport.setOnAction(event -> handleBulkImport());
 		
 		//logout
 		logout.setOnAction(event ->{
@@ -148,11 +151,17 @@ public class VIPController {
 		}	
 	}
 	
+	//Bulk export
+	private void handleBulkImport() {
+	//TODO
+	}
+	
+	
 	public void showStage(Pane root) {
 		Scene scene = new Scene(root, 500, 300);
 		stage.setScene(scene);
 		stage.setResizable(false);
-		stage.setTitle("Home");
+		stage.setTitle("VIP Homepage");
 		stage.show();
 	}
 }

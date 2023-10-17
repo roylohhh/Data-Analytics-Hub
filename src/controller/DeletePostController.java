@@ -64,7 +64,7 @@ public class DeletePostController {
 		Scene scene = new Scene(root, 500, 300);
 		stage.setScene(scene);
 		stage.setResizable(false);
-		stage.setTitle("Retrieve Post");
+		stage.setTitle("Delete Post");
 		stage.show();
 	}
 	

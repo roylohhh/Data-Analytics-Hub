@@ -23,7 +23,7 @@
                   <MenuItem fx:id="removePosts" mnemonicParsing="false" text="Remove post" />
                   <MenuItem fx:id="retrieveTopLikedPosts" mnemonicParsing="false" text="View Top liked posts" />
                   <MenuItem fx:id="exportPostByID" mnemonicParsing="false" text="Export post" />
-                  <MenuItem fx:id="bulkExport" mnemonicParsing="false" text="Bulk export" />
+                  <MenuItem fx:id="bulkImport" mnemonicParsing="false" text="Bulk Import" />
               </items>
             </Menu>
       </menus>

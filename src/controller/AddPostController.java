@@ -75,10 +75,10 @@ public class AddPostController {
 	}
 	
 	public void showStage(Pane root) {
-		Scene scene = new Scene(root, 500, 300);
+		Scene scene = new Scene(root, 500, 600);
 		stage.setScene(scene);
 		stage.setResizable(false);
-		stage.setTitle("Sign up");
+		stage.setTitle("Add Post");
 		stage.show();
 	}
 	

@@ -173,7 +173,7 @@ public class HomeController {
 		Scene scene = new Scene(root, 500, 300);
 		stage.setScene(scene);
 		stage.setResizable(false);
-		stage.setTitle("Home");
+		stage.setTitle("Homepage");
 		stage.show();
 	}
 }

@@ -9,12 +9,12 @@
 
 <VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="450.0" prefWidth="300.0" spacing="10.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <Label fx:id = "message"/>
       <Label prefHeight="17.0" prefWidth="250.0" text="Enter Post id" />
       <TextField fx:id="id" maxWidth="250.0">
          <VBox.margin>
             <Insets bottom="5.0" />
          </VBox.margin></TextField>
+      <Label fx:id="message" prefHeight="17.0" prefWidth="262.0" />
       <HBox alignment="CENTER" prefHeight="40.0" prefWidth="200.0" spacing="20.0">
          <children>
             <Button fx:id="deletePost" mnemonicParsing="false" text="Delete " />
