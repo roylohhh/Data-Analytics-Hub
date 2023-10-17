@@ -85,4 +85,6 @@ public class UserDaoImpl implements UserDao{
 		}
 	}
 	
+	//TODO: maybe implement a function to delete user from users once user has been verified login as a VIP
+	
 }
