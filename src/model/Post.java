@@ -1,4 +1,5 @@
 package model;
+import java.time.LocalDateTime;
 
 public class Post {
 	private int ID;
@@ -6,18 +7,21 @@ public class Post {
 	private String author;
 	private int likes;
 	private int shares;
+	private LocalDateTime postDateTime;
 	
 	//constructor
-	public Post(int ID, String content, String author, int likes, int shares) {
+	public Post(int ID, String content, String author, int likes, int shares, LocalDateTime postDateTime) {
 		this.ID = ID;
 		this.content = content;
 		this.author = author;
 		this.likes = likes;
 		this.shares = shares;
+		this.postDateTime = postDateTime;
 	}
 	
+	//receive the current dateTime
 	public Post() {
-		
+		this.postDateTime = LocalDateTime.now();
 	}
 	
 	//mutators performing common operations 
@@ -42,6 +46,10 @@ public class Post {
 		return shares;
 	}
 	
+	public LocalDateTime getPostDateTime() {
+		return postDateTime;
+	}
+	
 	public void setID(int ID) {
 		this.ID = ID;
 	}
@@ -61,4 +69,9 @@ public class Post {
 	public void setShares(int shares) {
 		this.shares = shares;
 	}
+	
+	public void setPostDateTime(LocalDateTime postDateTime) {
+		this.postDateTime = postDateTime;
+	}
+
 }

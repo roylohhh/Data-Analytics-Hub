@@ -5,6 +5,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 import model.Post;
 
@@ -25,6 +27,7 @@ public class PostDaoImpl implements PostDao{
 					+ "author VARCHAR(20) NOT NULL,"
 					+ "likes INT NOT NULL,"
 					+ "shares INT NOT NULL,"
+					+ "postDateTime VARCHAR(20) NOT NULL,"
 					+ "PRIMARY KEY (id))");
 			statement.executeUpdate(sql);
 		}
@@ -46,6 +49,8 @@ public class PostDaoImpl implements PostDao{
 					post.setAuthor(rs.getString("author"));
 					post.setLikes(rs.getInt("likes"));
 					post.setShares(rs.getInt("shares"));
+					DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm"); //formats dateTime into dd/MM/yyyy HH:mm
+					post.setPostDateTime(LocalDateTime.parse(rs.getString("postDateTime"),formatter));
 					return post;
 				}
 			}
@@ -56,7 +61,7 @@ public class PostDaoImpl implements PostDao{
 	@Override
 	//add Post
 	public Post createPost(int id, String content, String author, int likes, int shares) throws SQLException{
-		String sql = "INSERT INTO " + TABLE_NAME + " VALUES(?,?,?,?,?)" ;
+		String sql = "INSERT INTO " + TABLE_NAME + " VALUES(?,?,?,?,?,?)" ;
 		try(Connection connection = Database.getConnection();
 				PreparedStatement statement = connection.prepareStatement(sql);){
 			statement.setInt(1, id);
@@ -64,9 +69,12 @@ public class PostDaoImpl implements PostDao{
 			statement.setString(3, author);
 			statement.setInt(4, likes);
 			statement.setInt(5, shares);
+			DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm"); //formats dateTime into dd/MM/yyyy HH:mm
+			statement.setString(6, LocalDateTime.now().format(formatter)); 
+			
 
 			statement.executeUpdate();
-			return new Post(id, content, author, likes, shares);
+			return new Post(id, content, author, likes, shares, LocalDateTime.now());
 		}	
 	}
 	

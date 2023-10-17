@@ -2,6 +2,7 @@ package controller;
 
 import java.io.IOException;
 import java.sql.SQLException;
+import java.time.format.DateTimeFormatter;
 
 import javafx.fxml.FXML;
 import javafx.scene.Scene;
@@ -42,7 +43,10 @@ public class RetrievePostController {
 					int ID = Integer.parseInt(id.getText());
 					Post post = model.getPostDao().getPost(ID);
 					if(post != null) {
-						message.setText(String.format("ID: %d | Content %s | Author %s | Likes %d | Shares %d\n", post.getID(), post.getContent(), post.getAuthor() ,post.getLikes(), post.getShares()));
+						DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
+						String DateTime = post.getPostDateTime().format(formatter);
+						message.setText(String.format("ID: %d | Content: %s | Author: %s | Likes: %d | Shares: %d | DateTime: %s", 
+								post.getID(), post.getContent(), post.getAuthor() ,post.getLikes(), post.getShares(), DateTime));
 					} else {
 						message.setText("Post not found");
 					}
