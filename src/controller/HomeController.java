@@ -48,7 +48,7 @@ public class HomeController {
 		//retrieve posts
 		retrievePosts.setOnAction(event -> handleRetrievePosts());
 		//remove post
-		
+		removePosts.setOnAction(event -> handleDeletePosts());
 		//retrieve top N posts with most likes
 		
 		//Export post to file based on post ID
@@ -103,6 +103,21 @@ public class HomeController {
 		} catch(IOException e) {
 			e.getMessage();
 		}		
+	}
+	
+	//Delete Posts
+	private void handleDeletePosts() {
+		try {
+			FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/DeletePostView.fxml"));
+			DeletePostController deletePostController = new DeletePostController(stage, model);
+			loader.setController(deletePostController);
+			VBox root = loader.load();
+			
+			deletePostController.showStage(root);
+			
+		} catch(IOException e) {
+			e.getMessage();
+		}			
 	}
 	
 	public void showStage(Pane root) {
