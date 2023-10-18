@@ -7,6 +7,8 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.List;
 
 import model.Post;
 
@@ -78,7 +80,8 @@ public class PostDaoImpl implements PostDao{
 		}	
 	}
 	
-	//TODO: remove Post
+	@Override
+	//remove Post
 	public void deletePost(int id) throws SQLException{
 		String sql = "DELETE FROM " + TABLE_NAME + " WHERE id = ?";
 		try(Connection connection = Database.getConnection();
@@ -88,10 +91,33 @@ public class PostDaoImpl implements PostDao{
 		}
 	}
 	
+	@Override
 	//TODO: get top posts
+	public List<Post> getAllPosts() {
+		String sql = "SELECT * FROM " + TABLE_NAME + " ORDER BY likes DESC";
+		List<Post> posts = new ArrayList<>();
+		try (Connection connection = Database.getConnection();
+				PreparedStatement statement = connection.prepareStatement(sql);){
+			try(ResultSet rs = statement.executeQuery()){
+				while(rs.next()) {
+					Post post = new Post();
+					post.setID(rs.getInt("id"));
+					post.setContent(rs.getString("content"));
+					post.setAuthor(rs.getString("author"));
+					post.setLikes(rs.getInt("likes"));
+					post.setShares(rs.getInt("shares"));
+					DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm"); //formats dateTime into dd/MM/yyyy HH:mm
+					post.setPostDateTime(LocalDateTime.parse(rs.getString("postDateTime"),formatter));
+					posts.add(post);
+				}
+			} 
+			
+		} catch(SQLException e) {
+			System.out.println(e.getMessage());
+		}
+		return posts;
+	}
 	
-	
-	//TODO: Export posts
 
 		
 }

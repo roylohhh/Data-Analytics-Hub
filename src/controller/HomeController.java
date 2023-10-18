@@ -80,7 +80,7 @@ public class HomeController {
 		//remove post
 		removePosts.setOnAction(event -> handleDeletePosts());
 		//TODO: retrieve top N posts with most likes
-		
+		retrieveTopLikedPosts.setOnAction(event -> handleTopLikedPosts());
 		//Export post to file based on post ID
 		exportPostByID.setOnAction(event ->handleExportPost());
 		
@@ -152,7 +152,20 @@ public class HomeController {
 		}			
 	}
 	
-	//TODO: Retrieve top posts by likes
+	//Retrieve top posts by likes
+	private void handleTopLikedPosts() {
+		try {
+			FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/TopPostsView.fxml"));
+			TopPostsController topPostsController = new TopPostsController(stage, model);
+			loader.setController(topPostsController);
+			VBox root = loader.load();
+			
+			topPostsController.showStage(root);
+			
+		} catch(IOException e) {
+			e.getMessage();
+		}
+	}
 	
 	//Export post by id
 	private void handleExportPost() {
