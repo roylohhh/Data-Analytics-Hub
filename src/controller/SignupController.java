@@ -45,7 +45,7 @@ public class SignupController {
 			if (!username.getText().isEmpty() && !password.getText().isEmpty() && !firstName.getText().isEmpty() && !lastName.getText().isEmpty()) {
 				User user;
 				try {
-					user = model.getUserDao().createUser(username.getText(), password.getText(), firstName.getText(), lastName.getText());
+					user = model.getUserDao().createUser(username.getText(), password.getText(), firstName.getText(), lastName.getText());	
 					if (user != null) {
 						status.setText("Created " + user.getUsername());
 						status.setTextFill(Color.GREEN);
@@ -54,7 +54,7 @@ public class SignupController {
 						status.setTextFill(Color.RED);
 					}
 				} catch (SQLException e) {
-					status.setText(e.getMessage());
+					status.setText("Username already exists");
 					status.setTextFill(Color.RED);
 				}
 				

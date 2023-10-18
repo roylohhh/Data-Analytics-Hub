@@ -38,20 +38,24 @@ public class TopPostsController {
 	@FXML
 	public void initialize() {
 		retrievePosts.setOnAction(event ->{
-			if(!number.getText().isEmpty()) {
-				int numOfPosts = Integer.parseInt(number.getText());
-				message.clear();
-				List<Post> topNPosts = retrieveTopNPostsByLikes(numOfPosts);
-				Iterator<Post> iterator = topNPosts.iterator();
-				
-				while (iterator.hasNext()) {
-					Post post = iterator.next();
-					message.appendText(String.format("ID: %d | Content: %s | Author: %s | Likes: %d | Shares: %d | DateTime: %s\n", 
-					post.getID(), post.getContent(), post.getAuthor() ,post.getLikes(), post.getShares(), post.getPostDateTime()));
-				 }					
-			} else {
-				message.setText("Pls enter number of posts");
-			}
+			try {
+				if(!number.getText().isEmpty()) {
+					int numOfPosts = Integer.parseInt(number.getText());
+					message.clear();
+					List<Post> topNPosts = retrieveTopNPostsByLikes(numOfPosts);
+					Iterator<Post> iterator = topNPosts.iterator();
+					
+					while (iterator.hasNext()) {
+						Post post = iterator.next();
+						message.appendText(String.format("ID: %d | Content: %s | Author: %s | Likes: %d | Shares: %d | DateTime: %s\n", 
+						post.getID(), post.getContent(), post.getAuthor() ,post.getLikes(), post.getShares(), post.getPostDateTime()));
+					 }					
+				} else {
+					message.setText("Pls enter number of posts");
+				}
+			} catch (NumberFormatException e) {
+		    	message.setText("Pls enter a number");
+		    }
 		});
 		
 		close.setOnAction(event -> {
@@ -71,7 +75,7 @@ public class TopPostsController {
 		        Post post = iterator.next();
 		        topNPosts.add(post);
 		        count++;
-		    }
+		    } 
 		} catch (SQLException e) {
 			message.setText(e.getMessage());
 		}

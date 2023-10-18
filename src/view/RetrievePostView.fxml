@@ -15,7 +15,7 @@
          <VBox.margin>
             <Insets bottom="5.0" />
          </VBox.margin></TextField>
-      <TextArea fx:id="message" prefHeight="200.0" maxWidth="250.0" />
+      <TextArea fx:id="message" prefHeight="100.0" maxWidth="250.0" />
       <HBox alignment="CENTER" prefHeight="40.0" prefWidth="200.0" spacing="20.0">
          <children>
             <Button fx:id="retrievePost" mnemonicParsing="false" text="Retrieve post" />
