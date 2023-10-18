@@ -2,10 +2,14 @@ package controller;
 
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.List;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.chart.PieChart;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.MenuItem;
@@ -13,6 +17,7 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import model.Model;
+import model.Post;
 
 public class VIPController {
 	private Model model;
@@ -38,6 +43,8 @@ public class VIPController {
 	private MenuItem exportPostByID;
 	@FXML
 	private MenuItem bulkImport; 
+	@FXML
+	private PieChart pieChart;
 	
 	public VIPController(Stage parentStage, Model model) {
 		this.stage = new Stage();
@@ -51,6 +58,39 @@ public class VIPController {
 		//Display welcome message
 		currentUser.setText("Welcome VIP user " + model.getCurrentUser().getFirstName() + " " + model.getCurrentUser().getLastName());	
 		
+		//TODO: Pie chart
+		ObservableList<PieChart.Data>pieChartData = FXCollections.observableArrayList();
+		try {
+			List<Post> posts = model.getPostDao().getAllPosts();
+			int shares0to99 = 0;
+			int shares100to999 = 0;
+			int sharesMoreThan1000 = 0;
+			
+			for(Post post : posts) {
+				int shares = post.getShares();
+				
+				if(shares >=0 && shares <= 99) {
+					shares0to99++;
+				} else if(shares >=100 && shares <=999) {
+					shares100to999++;
+				} else if(shares >= 1000) {
+					sharesMoreThan1000++;
+				}
+			}
+			
+		pieChartData.add(new PieChart.Data("#shares 0-99", shares0to99));
+		pieChartData.add(new PieChart.Data("#shares 100-999", shares100to999));
+		pieChartData.add(new PieChart.Data("#shares >1000", sharesMoreThan1000));
+		
+		pieChart.setData(pieChartData);
+		pieChart.setTitle("Shares statistics");
+		
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		//Functionalities
 		//edit profile
 		editProfile.setOnAction(event -> handleEditVIPProfile());
 		//add post
@@ -171,7 +211,7 @@ public class VIPController {
 	
 	
 	public void showStage(Pane root) {
-		Scene scene = new Scene(root, 500, 300);
+		Scene scene = new Scene(root, 600, 500);
 		stage.setScene(scene);
 		stage.setResizable(false);
 		stage.setTitle("VIP Homepage");
