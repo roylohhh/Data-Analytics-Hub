@@ -56,11 +56,11 @@ public class AddPostController {
 						status.setText("Post added");
 						status.setTextFill(Color.GREEN);
 					} else {
-						status.setText("Post already exists");
+						status.setText("Post cannot be created");
 						status.setTextFill(Color.RED);
 					}
 				} catch(SQLException e) {
-					status.setText(e.getMessage());
+					status.setText("Please use a different post ID");
 					status.setTextFill(Color.RED);	
 				}
 			} else {

@@ -49,7 +49,6 @@ public class LoginController {
 					user = model.getVIPUserDao().getVIPUser(username.getText(), password.getText());
 					if (user != null) {
 						model.setCurrentUser(user);
-						//TODO: maybe i can implement a function to delete VIP user from user field
 						try {
 							FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/VIPView.fxml"));
 							VIPController vipController = new VIPController(stage, model);

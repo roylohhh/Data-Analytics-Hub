@@ -45,7 +45,7 @@ public class ExportPostController {
 					int ID = Integer.parseInt(id.getText());
 					Post post = model.getPostDao().getPost(ID);
 					if(post != null) {
-						try(BufferedWriter bufw = new BufferedWriter(new FileWriter("posts.csv"))){
+						try(BufferedWriter bufw = new BufferedWriter(new FileWriter("post.csv"))){
 							bufw.write("ID,content,author,likes,shares,date-time");
 							DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
 							bufw.newLine();

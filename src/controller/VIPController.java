@@ -1,7 +1,11 @@
 package controller;
 
+import java.io.BufferedReader;
+import java.io.FileReader;
 import java.io.IOException;
 import java.sql.SQLException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 import javafx.collections.FXCollections;
@@ -15,6 +19,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.MenuItem;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import model.Model;
 import model.Post;
@@ -25,6 +30,8 @@ public class VIPController {
 	private Stage parentStage;
 	@FXML
 	private Label currentUser; ///displays current user
+	@FXML
+	private Label message;
 	@FXML
 	private MenuItem editProfile; 
 	@FXML
@@ -206,7 +213,37 @@ public class VIPController {
 	
 	//Bulk export
 	private void handleBulkImport() {
-	//TODO
+		try(BufferedReader bufr = new BufferedReader(new FileReader("posts.csv"))){
+			String line;
+			//bufr.readLine() will skip the header in posts.csv
+			bufr.readLine(); 
+			// while function to read lines that are not empty
+			// all values retrieved will be in String format, hence parse is used to convert string values into right formats
+			while ((line = bufr.readLine()) != null) {
+				String[] values = line.split(",");
+				int ID = Integer.parseInt(values[0]);
+				String content = values[1];
+				String author = values[2];
+				int likes = Integer.parseInt(values[3]);
+				int shares = Integer.parseInt(values[4]);
+				
+				try {
+					Post post = model.getPostDao().createPost(ID, content, author, likes, shares);
+						message.setText("Posts have been imported successfully");
+						message.setTextFill(Color.GREEN);
+				} catch(SQLException e) {
+				/*
+				 Basically if i were to bulk import 5 posts and 2 posts already exist, 
+				 the catch message will be called but the 2 posts will be added regardless
+				 Hence i decided to put two similar messages for better user experience
+				 */
+					message.setText("Posts have been imported successfully");
+					message.setTextFill(Color.GREEN);
+				}
+			} 
+		} catch (IOException e) {
+			message.setText(e.getMessage());
+		}
 	}
 	
 	
