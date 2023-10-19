@@ -36,11 +36,11 @@ public class HomeController {
 	@FXML
 	private MenuItem retrieveTopLikedPosts; //Corresponds to the Menu item "retrieveTopLikedPosts" in HomeView.fxml
 	@FXML
-	private MenuItem exportPostByID;//Corresponds to the Menu item "exportPostByID" in HomeView.fxml
+	private MenuItem exportPostByID; //Corresponds to the Menu item "exportPostByID" in HomeView.fxml
 	@FXML
-	private Label DisplayVIP;
+	private Label DisplayVIP; 
 	@FXML
-	private Button upgradeToVIP;
+	private Button upgradeToVIP; 
 	
 	public HomeController(Stage parentStage, Model model) {
 		this.stage = new Stage();
@@ -54,23 +54,19 @@ public class HomeController {
 		//Display welcome message
 		currentUser.setText("Welcome " + model.getCurrentUser().getFirstName() + " " + model.getCurrentUser().getLastName());
 		//Ask user whether they want to be a VIP
-		
 		DisplayVIP.setText("Would you like to subscribe to the application for a monthly fee of $0?");
-		
 		//upgrade to VIP
 		upgradeToVIP.setOnAction(event ->{
 			User user = model.getCurrentUser();
-			try {
+			try { //adds user to VIPUser table and tells them to log out to access VIP functions
 				model.getVIPUserDao().createVIPUser(user.getUsername(), user.getPassword(), user.getFirstName(), user.getLastName());
-			} catch (SQLException e) {
-				DisplayVIP.setText(e.getMessage());
+				DisplayVIP.setText("Please log out and log in again to access VIP functionalities.");
+			} catch (SQLException e) { //User already added so display same message as above
 				DisplayVIP.setText("Please log out and log in again to access VIP functionalities.");
 			}
 		});
 		
-		
-		
-		
+		//MENU ITEMS
 		//edit profile
 		editProfile.setOnAction(event -> handleEditProfile());
 		//add posts
@@ -79,11 +75,10 @@ public class HomeController {
 		retrievePosts.setOnAction(event -> handleRetrievePosts());
 		//remove post
 		removePosts.setOnAction(event -> handleDeletePosts());
-		//TODO: retrieve top N posts with most likes
+		//retrieve top N posts with most likes
 		retrieveTopLikedPosts.setOnAction(event -> handleTopLikedPosts());
 		//Export post to file based on post ID
 		exportPostByID.setOnAction(event ->handleExportPost());
-		
 		//logout
 		logout.setOnAction(event ->{
 			stage.close();
@@ -94,7 +89,7 @@ public class HomeController {
 	
 	//Edit profile
 	private void handleEditProfile() {
-		try {
+		try { 
 			FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/EditProfileView.fxml"));
 			EditProfileController editProfileController = new EditProfileController(stage, model);
 			loader.setController(editProfileController);
@@ -185,7 +180,7 @@ public class HomeController {
 	public void showStage(Pane root) {
 		Scene scene = new Scene(root, 500, 300);
 		stage.setScene(scene);
-		stage.setResizable(false);
+		stage.setResizable(true);
 		stage.setTitle("Homepage");
 		stage.show();
 	}

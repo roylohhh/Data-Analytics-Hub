@@ -58,16 +58,15 @@ public class VIPController {
 		this.parentStage = parentStage;
 		this.model = model;
 	}
-	
-	// Add your code to complete the functionality of the program
-	
+
 	public void initialize() {
 		//Display welcome message
 		currentUser.setText("Welcome VIP user " + model.getCurrentUser().getFirstName() + " " + model.getCurrentUser().getLastName());	
 		
-		//TODO: Pie chart
+		//Pie chart
+		//Keep in mind that if user adds posts, they have to logout and login to see changes in pie chart data
 		ObservableList<PieChart.Data>pieChartData = FXCollections.observableArrayList();
-		try {
+		try { //store all posts in posts list
 			List<Post> posts = model.getPostDao().getAllPosts();
 			int shares0to99 = 0;
 			int shares100to999 = 0;
@@ -84,7 +83,8 @@ public class VIPController {
 					sharesMoreThan1000++;
 				}
 			}
-			
+		
+		//add data
 		pieChartData.add(new PieChart.Data("#shares 0-99", shares0to99));
 		pieChartData.add(new PieChart.Data("#shares 100-999", shares100to999));
 		pieChartData.add(new PieChart.Data("#shares >1000", sharesMoreThan1000));
@@ -97,7 +97,7 @@ public class VIPController {
 			e.printStackTrace();
 		}
 		
-		//Functionalities
+		//MENU ITEMS
 		//edit profile
 		editProfile.setOnAction(event -> handleEditVIPProfile());
 		//add post
@@ -112,7 +112,6 @@ public class VIPController {
 		exportPostByID.setOnAction(event ->handleExportPost());	
 		//Bulk export posts
 		bulkImport.setOnAction(event -> handleBulkImport());
-		
 		//logout
 		logout.setOnAction(event ->{
 			stage.close();
@@ -250,7 +249,7 @@ public class VIPController {
 	public void showStage(Pane root) {
 		Scene scene = new Scene(root, 600, 500);
 		stage.setScene(scene);
-		stage.setResizable(false);
+		stage.setResizable(true);
 		stage.setTitle("VIP Homepage");
 		stage.show();
 	}

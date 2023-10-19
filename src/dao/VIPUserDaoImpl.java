@@ -13,15 +13,14 @@ import model.Model;
 public class VIPUserDaoImpl implements VIPUserDao{
 	private final String TABLE_NAME = "VIPusers";
 	
-	/*
-	Basically the features are mostly similar as UserDaoImpl, but we are going to
-	check whether the user is part of the VIP table/ create user and put them in Vip table
-	 */
+	//Basically the features are mostly similar as UserDaoImpl, but interacts with VIPusers table instead
+	
 	public VIPUserDaoImpl() {
 		
 	}
 	
 	@Override
+	//setup
 	public void setup() throws SQLException{
 		try(Connection connection = Database.getConnection();
 				Statement statement = connection.createStatement();){

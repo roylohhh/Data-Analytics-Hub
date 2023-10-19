@@ -20,6 +20,7 @@ public class PostDaoImpl implements PostDao{
 	}
 	
 	@Override
+	//setup
 	public void setup() throws SQLException{
 		try(Connection connection = Database.getConnection();
 				Statement statement = connection.createStatement();){
@@ -92,7 +93,7 @@ public class PostDaoImpl implements PostDao{
 	}
 	
 	@Override
-	//TODO: get top posts
+	//Get top posts
 	public List<Post> getAllPosts() {
 		String sql = "SELECT * FROM " + TABLE_NAME + " ORDER BY likes DESC";
 		List<Post> posts = new ArrayList<>();

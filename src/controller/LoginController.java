@@ -41,15 +41,16 @@ public class LoginController {
 	
 	@FXML
 	public void initialize() {		
-		login.setOnAction(event -> {
+		login.setOnAction(event -> { //if username and password fields are not empty proceed
 			if (!username.getText().isEmpty() && !password.getText().isEmpty()) {
 				User user;
 				try {
-					//vip user function
+					//First check whether user is a VIP
+					//getVIPUser() is called to check whether user details exist in VIP table
 					user = model.getVIPUserDao().getVIPUser(username.getText(), password.getText());
 					if (user != null) {
 						model.setCurrentUser(user);
-						try {
+						try { //if yes, proceed to VIP home page
 							FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/VIPView.fxml"));
 							VIPController vipController = new VIPController(stage, model);
 							
@@ -61,13 +62,12 @@ public class LoginController {
 						}catch (IOException e) {
 							message.setText(e.getMessage());
 						} 
-					}else {
-						//regular login function
+					}else { //if not, check whether user details exist in users table
 						try {
 							user = model.getUserDao().getUser(username.getText(), password.getText());
-							if (user != null) {
+							if (user != null) { 
 								model.setCurrentUser(user);
-								try {
+								try { //if yes, proceed to normal home page
 									FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/HomeView.fxml"));
 									HomeController homeController = new HomeController(stage, model);
 									
@@ -80,7 +80,7 @@ public class LoginController {
 									message.setText(e.getMessage());
 								}
 								
-							} else {
+							} else { //if not display error message
 								message.setText("Wrong username or password");
 								message.setTextFill(Color.RED);
 							}
@@ -94,7 +94,7 @@ public class LoginController {
 					message.setTextFill(Color.RED);
 				}
 				
-			} else {
+			} else { //Empty fields
 				message.setText("Empty username or password");
 				message.setTextFill(Color.RED);
 			}
@@ -103,7 +103,7 @@ public class LoginController {
 		});
 		
 		signup.setOnAction(event -> {
-			try {
+			try { //Redirect user to register page
 				FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/SignupView.fxml"));
 				
 				// Customize controller instance
@@ -127,7 +127,7 @@ public class LoginController {
 	public void showStage(Pane root) {
 		Scene scene = new Scene(root, 500, 300);
 		stage.setScene(scene);
-		stage.setResizable(false);
+		stage.setResizable(true);
 		stage.setTitle("Welcome");
 		stage.show();
 	}

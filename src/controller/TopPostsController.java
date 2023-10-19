@@ -38,22 +38,22 @@ public class TopPostsController {
 	@FXML
 	public void initialize() {
 		retrievePosts.setOnAction(event ->{
-			try {
+			try { //if input is not empty
 				if(!number.getText().isEmpty()) {
 					int numOfPosts = Integer.parseInt(number.getText());
-					message.clear();
-					List<Post> topNPosts = retrieveTopNPostsByLikes(numOfPosts);
-					Iterator<Post> iterator = topNPosts.iterator();
+					message.clear(); //clears the appended message 
+					List<Post> topNPosts = retrieveTopNPostsByLikes(numOfPosts); //function is called
+					Iterator<Post> iterator = topNPosts.iterator(); //iterates over topNPosts
 					
-					while (iterator.hasNext()) {
+					while (iterator.hasNext()) { //append is used so that multiple posts can be displayed to user
 						Post post = iterator.next();
 						message.appendText(String.format("ID: %d | Content: %s | Author: %s | Likes: %d | Shares: %d | DateTime: %s\n", 
 						post.getID(), post.getContent(), post.getAuthor() ,post.getLikes(), post.getShares(), post.getPostDateTime()));
-					 }					
-				} else {
+					 }	
+				} else { //empty input
 					message.setText("Pls enter number of posts");
 				}
-			} catch (NumberFormatException e) {
+			} catch (NumberFormatException e) { //something that is not a number is input
 		    	message.setText("Pls enter a number");
 		    }
 		});
@@ -65,14 +65,14 @@ public class TopPostsController {
 	}
 	
 	public List<Post> retrieveTopNPostsByLikes(int numOfPosts) {
-		List<Post> topNPosts = new ArrayList<>();
+		List<Post> topNPosts = new ArrayList<>(); //new arrayList called topNPosts
 		try {
-			List<Post> Posts = model.getPostDao().getAllPosts();
-			Iterator<Post> iterator = Posts.iterator();
+			List<Post> Posts = model.getPostDao().getAllPosts(); //Store all posts in posts list
+			Iterator<Post> iterator = Posts.iterator(); //iterator to iterate over posts list
 			
 			int count = 0;
-			while (iterator.hasNext() && count < numOfPosts) {
-		        Post post = iterator.next();
+			while (iterator.hasNext() && count < numOfPosts) { //while the count is less than number user has input
+		        Post post = iterator.next(); //iterates and adds post to topNPosts list
 		        topNPosts.add(post);
 		        count++;
 		    } 
@@ -86,7 +86,7 @@ public class TopPostsController {
 	public void showStage(Pane root) {
 		Scene scene = new Scene(root, 500, 400);
 		stage.setScene(scene);
-		stage.setResizable(false);
+		stage.setResizable(true);
 		stage.setTitle("Retrieve Top Posts");
 		stage.show();
 	}

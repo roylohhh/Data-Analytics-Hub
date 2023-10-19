@@ -42,25 +42,27 @@ public class EditProfileController {
 	
 	@FXML
 	public void initialize() {
-		editProfile.setOnAction(event ->{
+		editProfile.setOnAction(event ->{ //if no fields are empty proceed
 			if(!username.getText().isEmpty() && !password.getText().isEmpty() && !firstName.getText().isEmpty() && !lastName.getText().isEmpty()) {
 				User user; 
-				try {
+				try { 
 					user = model.getCurrentUser();
+					//saves current user's username in currentuser
 					String currentUsername = user.getUsername();
+					//new details saved in user
 					user.setUsername(username.getText());
 					user.setPassword(password.getText());
 					user.setFirstName(firstName.getText());
 					user.setLastName(lastName.getText());
-					
+					//edits user's profile
 					model.getUserDao().editProfile(user, currentUsername);
 					status.setText("User details updated");
 					status.setTextFill(Color.GREEN);
-				} catch(SQLException e) {
-					status.setText(e.getMessage());
+				} catch(SQLException e) { //if user changes username, and the username is unavailable
+					status.setText("Username already exists");
 					status.setTextFill(Color.RED);					
 				} 					
-			} else {
+			} else {//Empty fields
 				status.setText("Empty username or password");
 				status.setTextFill(Color.RED);
 			}
@@ -75,7 +77,7 @@ public class EditProfileController {
 	public void showStage(Pane root) {
 		Scene scene = new Scene(root, 500, 400);
 		stage.setScene(scene);
-		stage.setResizable(false);
+		stage.setResizable(true);
 		stage.setTitle("Edit Profile");
 		stage.show();
 	}

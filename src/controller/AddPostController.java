@@ -44,13 +44,14 @@ public class AddPostController {
 	
 	@FXML
 	public void initialize() {
-		addPost.setOnAction(event -> {
+		addPost.setOnAction(event -> { //if no empty fields, proceed
 			if(!id.getText().isEmpty() && !content.getText().isEmpty() && !author.getText().isEmpty() && !likes.getText().isEmpty() && !shares.getText().isEmpty()) {
 				Post post;
-				int ID = Integer.parseInt(id.getText());
-				int Likes = Integer.parseInt(likes.getText());
+				//parse Integer to correct format
+				int ID = Integer.parseInt(id.getText()); 
+				int Likes = Integer.parseInt(likes.getText()); 
 				int Shares = Integer.parseInt(shares.getText());
-				try {
+				try { //call createPost() to add post to posts table
 					post = model.getPostDao().createPost(ID, content.getText(), author.getText(), Likes, Shares);
 					if(post != null) {
 						status.setText("Post added");
@@ -59,11 +60,11 @@ public class AddPostController {
 						status.setText("Post cannot be created");
 						status.setTextFill(Color.RED);
 					}
-				} catch(SQLException e) {
+				} catch(SQLException e) { //if post ID already exists, error message displayed
 					status.setText("Please use a different post ID");
 					status.setTextFill(Color.RED);	
 				}
-			} else {
+			} else { //empty fields
 					status.setText("Empty fields!");
 					status.setTextFill(Color.RED);
 				}
@@ -77,7 +78,7 @@ public class AddPostController {
 	public void showStage(Pane root) {
 		Scene scene = new Scene(root, 500, 600);
 		stage.setScene(scene);
-		stage.setResizable(false);
+		stage.setResizable(true);
 		stage.setTitle("Add Post");
 		stage.show();
 	}

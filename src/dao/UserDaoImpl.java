@@ -15,8 +15,9 @@ public class UserDaoImpl implements UserDao{
 	public UserDaoImpl() {
 		
 	}
-	//Get the table users
+	
 	@Override
+	//setup
 	public void setup() throws SQLException{
 		try(Connection connection = Database.getConnection();
 				Statement statement = connection.createStatement();){

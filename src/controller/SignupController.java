@@ -41,24 +41,24 @@ public class SignupController {
 
 	@FXML
 	public void initialize() {
-		createUser.setOnAction(event -> {
+		createUser.setOnAction(event -> { //if no fields are empty proceed
 			if (!username.getText().isEmpty() && !password.getText().isEmpty() && !firstName.getText().isEmpty() && !lastName.getText().isEmpty()) {
 				User user;
-				try {
+				try { //call createUser() function to add details to users table
 					user = model.getUserDao().createUser(username.getText(), password.getText(), firstName.getText(), lastName.getText());	
 					if (user != null) {
 						status.setText("Created " + user.getUsername());
 						status.setTextFill(Color.GREEN);
-					} else {
+					} else { 
 						status.setText("Cannot create user");
 						status.setTextFill(Color.RED);
-					}
-				} catch (SQLException e) {
+					} 
+				} catch (SQLException e) { //username already exists so that we display error message
 					status.setText("Username already exists");
 					status.setTextFill(Color.RED);
 				}
 				
-			} else {
+			} else { //Empty fields 
 				status.setText("Empty username or password");
 				status.setTextFill(Color.RED);
 			}
@@ -73,7 +73,7 @@ public class SignupController {
 	public void showStage(Pane root) {
 		Scene scene = new Scene(root, 500, 400);
 		stage.setScene(scene);
-		stage.setResizable(false);
+		stage.setResizable(true);
 		stage.setTitle("Sign up");
 		stage.show();
 	}

@@ -37,19 +37,19 @@ public class DeletePostController {
 	public void initialize() {
 		deletePost.setOnAction(event ->{
 			if(!id.getText().isEmpty()) {
-				try {
+				try { //removes the ID from post table and displays message
 					int ID = Integer.parseInt(id.getText());
 					model.getPostDao().deletePost(ID);
 					message.setText("Post successfully deleted");
 					message.setTextFill(Color.GREEN);
-				} catch(NumberFormatException e) {
+				} catch(NumberFormatException e) { //if user enters anything other than a number
 					message.setText("Invalid ID");
 					message.setTextFill(Color.RED);
-				} catch(SQLException e) {
+				} catch(SQLException e) { 
 					message.setText(e.getMessage());
 				}
 			} else {
-				message.setText("Empty ID");
+				message.setText("Empty ID"); //if id is empty
 				message.setTextFill(Color.RED);
 			}
 		});
@@ -63,7 +63,7 @@ public class DeletePostController {
 	public void showStage(Pane root) {
 		Scene scene = new Scene(root, 500, 300);
 		stage.setScene(scene);
-		stage.setResizable(false);
+		stage.setResizable(true);
 		stage.setTitle("Delete Post");
 		stage.show();
 	}

@@ -39,24 +39,24 @@ public class RetrievePostController {
 	public void initialize() {
 		retrievePost.setOnAction(event -> {
 			if(!id.getText().isEmpty()) {	
-				try {
+				try { 
 					int ID = Integer.parseInt(id.getText());
 					Post post = model.getPostDao().getPost(ID);
-					if(post != null) {
+					if(post != null) { //formatter used to ensure there is a dd/MM/yyyy HH:mm format
 						DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
 						String DateTime = post.getPostDateTime().format(formatter);
 						message.setText(String.format("ID: %d | Content: %s | Author: %s | Likes: %d | Shares: %d | DateTime: %s", 
 								post.getID(), post.getContent(), post.getAuthor() ,post.getLikes(), post.getShares(), DateTime));
-					} else {
+					} else { //id input does not exist in posts table
 						message.setText("Post not found");
 					}
 					
-				} catch(NumberFormatException e) {
+				} catch(NumberFormatException e) { //if something other than integer is input
 					message.setText("Invalid ID");
 				} catch(SQLException e) {
 					message.setText(e.getMessage());
 				}
-			} else {
+			} else { //no input
 				message.setText("Empty ID");
 			}
 		});
@@ -70,7 +70,7 @@ public class RetrievePostController {
 	public void showStage(Pane root) {
 		Scene scene = new Scene(root, 500, 400);
 		stage.setScene(scene);
-		stage.setResizable(false);
+		stage.setResizable(true);
 		stage.setTitle("Retrieve Post");
 		stage.show();
 	}

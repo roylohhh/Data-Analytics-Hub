@@ -40,12 +40,13 @@ public class EditVIPProfileController {
 		this.model = model;
 	}
 	
+	//same as Edit profile except writes into vipUsers table
 	@FXML
 	public void initialize() {
-		editProfile.setOnAction(event ->{
+		editProfile.setOnAction(event ->{ 
 			if(!username.getText().isEmpty() && !password.getText().isEmpty() && !firstName.getText().isEmpty() && !lastName.getText().isEmpty()) {
 				User user; 
-				try {
+				try {  
 					user = model.getCurrentUser();
 					String currentUsername = user.getUsername();
 					user.setUsername(username.getText());
@@ -75,7 +76,7 @@ public class EditVIPProfileController {
 	public void showStage(Pane root) {
 		Scene scene = new Scene(root, 500, 400);
 		stage.setScene(scene);
-		stage.setResizable(false);
+		stage.setResizable(true);
 		stage.setTitle("Edit Profile");
 		stage.show();
 	}
