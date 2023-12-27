@@ -10,5 +10,5 @@ Instructions:
 Note: I have stored my JavaFX files and Jdbc file in my project folder.
 
 OO design diagram:
-![image](https://github.com/roylohhh/Data-Analytics-Hub/assets/101264393/07c9f81f-c808-47c4-bdb8-1380a5a9a2b8)
+
 
