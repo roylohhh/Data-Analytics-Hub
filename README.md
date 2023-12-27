@@ -7,6 +7,7 @@ JavaFX version: javafx-sdk-21
 Jdbc driver: sqlite-jdbc-3.36.0.3.jar
 
 
+
 Instructions:
 1.	Download project.
 2.	Place project in eclipse workspace.
