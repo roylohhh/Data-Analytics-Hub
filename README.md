@@ -1,9 +1,6 @@
 IDE: Eclipse
-
 Java version: JavaSE-17
-
 JavaFX version: javafx-sdk-21
-
 Jdbc driver: sqlite-jdbc-3.36.0.3.jar
 
 
